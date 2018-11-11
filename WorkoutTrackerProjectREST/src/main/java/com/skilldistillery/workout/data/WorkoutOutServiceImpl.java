@@ -43,23 +43,24 @@ public class WorkoutOutServiceImpl implements WorkoutService {
 
 	@Override
 	public Workout updateWorkout(Workout workout, int id) {
-		Workout workoutOpt = repo.findById(id);
+		Workout managedWorkout = new Workout();
+		Optional<Workout> workoutOpt = repo.findById(id);
+		if (workoutOpt.isPresent()) {
 			if (workout.getType() != null) {
-				workoutOpt.setType(workout.getType());
+				managedWorkout.setType(workout.getType());
 			}
 			if (workout.getExercise() != null) {
-				workoutOpt.setExercise(workout.getExercise());
+				managedWorkout.setExercise(workout.getExercise());
 			}
 			if (workout.getDuration() != null) {
-				workoutOpt.setDuration(workout.getDuration());
+				managedWorkout.setDuration(workout.getDuration());
 			}
 			if (workout.getCaloriesBurned() != null) {
-				workoutOpt.setCaloriesBurned(workout.getCaloriesBurned());
+				managedWorkout.setCaloriesBurned(workout.getCaloriesBurned());
 			}
 		}
-		workoutOpt = repo.saveAndFlush(workoutOpt);
-		System.out.println(workoutOpt);
-		return workoutOpt;
+//		managedWorkout = repo.saveAndFlush(managedWorkout);
+		return managedWorkout;
 	}
 	
 	@Override
