@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -47,6 +48,13 @@ public class WorkoutController {
 	@PutMapping(path="workouts/{id}")
 	public Workout replaceWorkout(@RequestBody Workout workout, @PathVariable("id") int id, HttpServletResponse resp) {
 		workout = serv.replaceWorkout(workout, id);
+		return workout;
+	}
+	
+	// this method allows the user to update an already exisiting workout 
+	@PatchMapping(path="workouts/{id}")
+	public Workout updateWorkout(@RequestBody Workout workout, @PathVariable("id") int id, HttpServletResponse resp) {
+		workout = serv.updateWorkout(workout, id);
 		return workout;
 	}
 	

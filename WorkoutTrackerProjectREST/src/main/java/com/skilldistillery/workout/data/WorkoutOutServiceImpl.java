@@ -42,6 +42,27 @@ public class WorkoutOutServiceImpl implements WorkoutService {
 	}
 
 	@Override
+	public Workout updateWorkout(Workout workout, int id) {
+		Workout workoutOpt = repo.findById(id);
+			if (workout.getType() != null) {
+				workoutOpt.setType(workout.getType());
+			}
+			if (workout.getExercise() != null) {
+				workoutOpt.setExercise(workout.getExercise());
+			}
+			if (workout.getDuration() != null) {
+				workoutOpt.setDuration(workout.getDuration());
+			}
+			if (workout.getCaloriesBurned() != null) {
+				workoutOpt.setCaloriesBurned(workout.getCaloriesBurned());
+			}
+		}
+		workoutOpt = repo.saveAndFlush(workoutOpt);
+		System.out.println(workoutOpt);
+		return workoutOpt;
+	}
+	
+	@Override
 	public Boolean deleteWorkout(int id) {
 		Boolean isWorkoutDeleted = false;
 		Optional<Workout> workoutOpt = repo.findById(id);
@@ -51,5 +72,6 @@ public class WorkoutOutServiceImpl implements WorkoutService {
 		}
 		return isWorkoutDeleted;
 	}
+
 
 }

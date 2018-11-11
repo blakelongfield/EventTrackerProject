@@ -14,4 +14,6 @@ public interface WorkoutService {
 
 	public Workout replaceWorkout(Workout workout, int id);
 	
+	public Workout updateWorkout(Workout workout, int id);
+	
 }
