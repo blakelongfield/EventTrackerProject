@@ -19,6 +19,13 @@ public class WorkoutOutServiceImpl implements WorkoutService {
 		List<Workout> workouts = repo.findAll();
 		return workouts;
 	}
+	
+	@Override
+	public Workout findWorkoutById(int id) {
+		Optional<Workout> workoutOpt = repo.findById(id);
+		Workout workout = workoutOpt.get();
+		return workout;
+	}
 
 	@Override
 	public Workout createWorkout(Workout workout) {
@@ -73,5 +80,6 @@ public class WorkoutOutServiceImpl implements WorkoutService {
 		}
 		return isWorkoutDeleted;
 	}
+
 
 }

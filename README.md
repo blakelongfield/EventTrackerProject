@@ -7,6 +7,9 @@ This project simulates a tracking program similar to programs like myFitnessPal,
 The index method: A list of all the workouts in the database will be shown.
 Route: api/workouts
 
+The findById method: When an id of a specific workout is passed in by the user, that workout will be shown.
+Route: api/workouts/{id}
+
 The create method: Creates a new workout when the user passes in the necessary information.
 Route: api/workouts
 

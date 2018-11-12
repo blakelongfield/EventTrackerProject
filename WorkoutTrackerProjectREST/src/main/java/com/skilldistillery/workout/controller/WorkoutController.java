@@ -34,6 +34,12 @@ public class WorkoutController {
 		return workouts;
 	}
 	
+	@GetMapping(path="workouts/{id}")
+	public Workout getWorkoutById(@PathVariable("id") int id, HttpServletResponse resp) {
+		Workout workout = serv.findWorkoutById(id);
+			return workout;
+	}
+	
 	// this method allows the user to create a new workout
 	@PostMapping(path="workouts")
 	public Workout createWorkout(@RequestBody Workout workout, HttpServletResponse resp) {

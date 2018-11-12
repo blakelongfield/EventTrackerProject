@@ -8,9 +8,10 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @SpringBootApplication
 public class WorkoutTrackerProjectRestApplication extends SpringBootServletInitializer {
 	@Override
-	  protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-	    return application.sources(WorkoutTrackerProjectRestApplication.class);
-	  }
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(WorkoutTrackerProjectRestApplication.class);
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(WorkoutTrackerProjectRestApplication.class, args);
 	}

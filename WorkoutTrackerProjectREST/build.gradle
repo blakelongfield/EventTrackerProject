@@ -36,6 +36,7 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	runtimeOnly('mysql:mysql-connector-java')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
+    providedRuntime ('org.springframework.boot:spring-boot-starter-tomcat')
 	
 	compile 'org.junit.jupiter:junit-jupiter-api:5.0.1'
 	testCompile('org.apiguardian:apiguardian-api:1.0.0')
@@ -43,5 +44,4 @@ dependencies {
             'org.junit.vintage:junit-vintage-engine:4.12.1',
             'org.junit.platform:junit-platform-launcher:1.0.1',
             'org.junit.platform:junit-platform-runner:1.0.1')
-    providedRuntime ('org.springframework.boot:spring-boot-starter-tomcat')
 }

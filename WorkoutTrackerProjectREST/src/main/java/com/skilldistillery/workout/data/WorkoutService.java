@@ -8,6 +8,8 @@ public interface WorkoutService {
 	
 	public List<Workout> showAll();
 	
+	public Workout findWorkoutById(int id);
+	
 	public Workout createWorkout(Workout workout);
 		
 	public Boolean deleteWorkout(int id);
