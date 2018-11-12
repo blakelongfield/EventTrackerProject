@@ -16,7 +16,7 @@ public class WorkoutOutServiceImpl implements WorkoutService {
 
 	@Override
 	public List<Workout> showAll() {
-		List <Workout> workouts = repo.findAll();
+		List<Workout> workouts = repo.findAll();
 		return workouts;
 	}
 
@@ -31,7 +31,7 @@ public class WorkoutOutServiceImpl implements WorkoutService {
 		Workout managedWorkout = null;
 		Optional<Workout> workoutOpt = repo.findById(id);
 		if (workoutOpt.isPresent()) {
-			managedWorkout = workoutOpt.get(); 
+			managedWorkout = workoutOpt.get();
 			managedWorkout.setType(workout.getType());
 			managedWorkout.setExercise(workout.getExercise());
 			managedWorkout.setDuration(workout.getDuration());
@@ -43,26 +43,26 @@ public class WorkoutOutServiceImpl implements WorkoutService {
 
 	@Override
 	public Workout updateWorkout(Workout workout, int id) {
-		Workout managedWorkout = new Workout();
 		Optional<Workout> workoutOpt = repo.findById(id);
-		if (workoutOpt.isPresent()) {
-			if (workout.getType() != null) {
-				managedWorkout.setType(workout.getType());
-			}
-			if (workout.getExercise() != null) {
-				managedWorkout.setExercise(workout.getExercise());
-			}
-			if (workout.getDuration() != null) {
-				managedWorkout.setDuration(workout.getDuration());
-			}
-			if (workout.getCaloriesBurned() != null) {
-				managedWorkout.setCaloriesBurned(workout.getCaloriesBurned());
-			}
+		Workout updatedWorkout = workoutOpt.get();
+
+		if (workout.getType() != null) {
+			updatedWorkout.setType(workout.getType());
 		}
-//		managedWorkout = repo.saveAndFlush(managedWorkout);
-		return managedWorkout;
+		if (workout.getExercise() != null) {
+			updatedWorkout.setExercise(workout.getExercise());
+		}
+		if (workout.getDuration() != null) {
+			updatedWorkout.setDuration(workout.getDuration());
+		}
+		if (workout.getCaloriesBurned() != null) {
+			updatedWorkout.setCaloriesBurned(workout.getCaloriesBurned());
+		}
+
+		updatedWorkout = repo.saveAndFlush(updatedWorkout);
+		return updatedWorkout;
 	}
-	
+
 	@Override
 	public Boolean deleteWorkout(int id) {
 		Boolean isWorkoutDeleted = false;
@@ -73,6 +73,5 @@ public class WorkoutOutServiceImpl implements WorkoutService {
 		}
 		return isWorkoutDeleted;
 	}
-
 
 }
