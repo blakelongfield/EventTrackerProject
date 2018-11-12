@@ -2,21 +2,25 @@
 
 ## Overview
 
-This project simulates a tracking program similar to programs like myFitnessPal, however, this program tracks workouts for the user.
+This project simulates a tracking program similar to programs like myFitnessPal, however, this program tracks workouts for the user. This project implements each of the CRUD operations. All methods in the controller are functional and can be tested with the Postman app.
 
-The project implements each of the 4 basic CRUD operations.  The user is given the option to show all workouts, create a new workout, replace a workout, and delete a workout.
+The create method: Creates a new workout when the user passes in the necessary information.
+
+The replace method: The user can pass in a workout id and replace this workout with a new one passed in by the user.
+
+The update method: The user can pass in the updated information for a specific workout and it will all be stored in the database.  
+
+The delete method: The user can pass in a workout id and it will delete the workout from the database.
 
 Http status responses have been implemented to show that the information has been correctly passed in by the user.
 
 ## Technologies Used
 * Spring Boot
 * JPA
-* If/else statements
-* The use of Abstraction, Polymorphism, Inheritance, and Encapsulation
-* Repositories and Entities
-* Imports
+* MySQL Workbench
+* Gradle
+* REST
+* Postman
 * Junit Testing
 * Servers
-* The use of "getters and setters"
-* Constructors
-* Interfaces
+* Repositories

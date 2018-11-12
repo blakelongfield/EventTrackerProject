@@ -44,7 +44,7 @@ public class WorkoutController {
 		return workout;
 	}
 	
-	// this method allows the user to replace a workout with a new one without changing the id
+	// this method allows the user to replace a workout
 	@PutMapping(path="workouts/{id}")
 	public Workout replaceWorkout(@RequestBody Workout workout, @PathVariable("id") int id, HttpServletResponse resp) {
 		workout = serv.replaceWorkout(workout, id);
