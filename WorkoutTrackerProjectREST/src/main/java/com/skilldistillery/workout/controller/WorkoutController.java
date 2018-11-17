@@ -48,6 +48,9 @@ public class WorkoutController {
 		if (workout != null) {
 			resp.setStatus(201);
 		}
+		else {
+			resp.setStatus(400);
+		}
 		return workout;
 	}
 	
@@ -55,6 +58,12 @@ public class WorkoutController {
 	@PutMapping(path="workouts/{id}")
 	public Workout replaceWorkout(@RequestBody Workout workout, @PathVariable("id") int id, HttpServletResponse resp) {
 		workout = serv.replaceWorkout(workout, id);
+		if (workout != null) {
+			resp.setStatus(202);
+		}
+		else {
+			resp.setStatus(400);
+		}
 		return workout;
 	}
 	
@@ -62,6 +71,12 @@ public class WorkoutController {
 	@PatchMapping(path="workouts/{id}")
 	public Workout updateWorkout(@RequestBody Workout workout, @PathVariable("id") int id, HttpServletResponse resp) {
 		workout = serv.updateWorkout(workout, id);
+		if (workout != null) {
+			resp.setStatus(202);
+		}
+		else {
+			resp.setStatus(404);
+		}
 		return workout;
 	}
 	
