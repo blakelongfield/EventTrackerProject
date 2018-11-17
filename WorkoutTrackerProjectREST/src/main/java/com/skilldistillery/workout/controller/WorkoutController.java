@@ -34,6 +34,7 @@ public class WorkoutController {
 		return workouts;
 	}
 	
+	// this method shows one workout when a workout id is passed in
 	@GetMapping(path="workouts/{id}")
 	public Workout getWorkoutById(@PathVariable("id") int id, HttpServletResponse resp) {
 		Workout workout = serv.findWorkoutById(id);
