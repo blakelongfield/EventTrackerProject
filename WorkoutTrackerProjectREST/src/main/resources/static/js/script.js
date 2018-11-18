@@ -19,20 +19,6 @@ function newWorkout() {
 	});
 }
 
-function patchWorkout() {
-	document.updateWorkout.update.addEventListener('click', function(es) {
-		es.preventDefault();
-		let form = event.target.parentElement;
-		let workout = {
-				type : form.type.value,
-				duration : form.duration.value,
-				exercise : form.exercise.value,
-				caloriesBurned : form.caloriesBurned.value
-		};
-		updateWorkout(workout);
-	});
-}
-
 function getDataForTable() {
 	let xhr = new XMLHttpRequest();
 	xhr.open('GET', 'api/workouts');
@@ -95,6 +81,7 @@ function getWorkoutById(workoutId) {
 				let response = xhr.responseText;
 				let workout = JSON.parse(response);
 				singleWorkoutDetails(workout);
+				console.log(workout);
 			}
 			else {
 				console.log('denied');
@@ -104,56 +91,73 @@ function getWorkoutById(workoutId) {
 	xhr.send();
 }
 
-function updateWorkout(workout) {
+function updateWorkout(managedWorkoutId) {
 	let xhr = new XMLHttpRequest();
-	let updatedWorkout = JSON.stringify(workout);
-	xhr.open('PUT', 'api/workouts' + workout.id);
-	xhr.setRequestHeader('Content-type', 'application/json');
+	xhr.open('PUT', 'api/workouts/' + managedWorkoutId);
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 202) {
-				let updatedWorkout = JSON.parse(xhr.responseText);
+				console.log('success');
+				let response = xhr.responseText;
+				let updatedWorkout = JSON.parse(response);
+				console.log(updatedWorkout);
+			}
+			else {
+				console.log('denied');
 			}
 		}
 	};
-	console.log(updateWorkout);
-	xhr.send(workoutJson);
+	xhr.send();
 }
 
-function update(workoutId) {
-	let divSingleWorkout2 = document.getElementById('divSingleWorkout');
-	divSingleWorkout2 = "";
-	let updateDiv = document.createElement('form');
-	divSingleWorkout2.appendChild(updateDiv);
+
+function updateWorkoutById(managedWorkout) {
+	let br = document.createElement('br');
+	let divSingleWorkoutUpdate = document.getElementById('divSingleWorkout');
+	let updateForm = document.createElement('form');
+	divSingleWorkoutUpdate.appendChild(updateForm);
 	
-	divSingleWorkout2.textContent = 'hi';
-	console.log(divSingleWorkout2);
-	console.log(workoutId);
+	let h3 = document.createElement('h3');
+	h3.textContent = 'Edit a workout';
+	updateForm.appendChild(h3);
+	
 	let typeTextField = document.createElement('input');
 	typeTextField.setAttribute('type', 'text');
-	typeTextField.setAttribute('name', 'type');
-	updateDiv.appendChild(typeTextField);
+	managedWorkout.type = typeTextField.setAttribute('value', 'type');
+	updateForm.appendChild(typeTextField);
 	
 	let durationTextField = document.createElement('input');
-	durationTextField.setAttribute('type', 'text');
-	durationTextField.setAttribute('name', 'duration');
-	divSingleWorkout2.appendChild(durationTextField);
+	durationTextField.setAttribute('type', 'number');
+	durationTextField.setAttribute('placeholder', 'duration');
+	updateForm.appendChild(durationTextField);
 	
 	let exerciseTextField = document.createElement('input');
 	exerciseTextField.setAttribute('type', 'text');
-	exerciseTextField.setAttribute('name', 'exercise');
-	divSingleWorkout2.appendChild(exerciseTextField);
-	
+	exerciseTextField.setAttribute('value', 'exercise');
+	updateForm.appendChild(exerciseTextField);
+
 	let caloriesBurnedTextField = document.createElement('input');
-	caloriesBurnedTextField.setAttribute('type', 'text');
-	caloriesBurnedTextField.setAttribute('name', 'caloriesBurned');
-	divSingleWorkout2.appendChild(caloriesBurnedTextField);
+	caloriesBurnedTextField.setAttribute('type', 'number');
+	caloriesBurnedTextField.setAttribute('placeholder', 'calories burned');
+	updateForm.appendChild(caloriesBurnedTextField);
 	
-	let submit = document.createElement('input');
-	submit.setAttribute('type', 'button');
-	submit.setAttribute('id', 'submit');
-	submit.setAttribute('value', 'submit');
-	submit.setAttribute('onclick', 'updateWorkout('+workoutId+')')
+	let updateSubmitButton = document.createElement('input');
+	updateSubmitButton.setAttribute('type', 'button');
+	updateSubmitButton.setAttribute('value', 'submit');
+	updateForm.appendChild(updateSubmitButton);
+	
+	updateSubmitButton.addEventListener('click', function(e) {
+				event.preventDefault();
+				let form = event.target.parentElement;
+				let managedWorkout = {
+					type : form.type.value,
+					duration : form.duration.value,
+					exercise : form.exercise.value,
+					caloriesBurned : form.caloriesBurned.value
+				};
+				console.log(managedWorkout.id);
+				updateWorkout(managedWorkout.id);
+});
 }
 
 function tableOfData(workouts) {
@@ -196,8 +200,6 @@ function tableOfData(workouts) {
 	tbody.setAttribute('id', 'workoutTbody');
 	table.appendChild(tbody);
 
-	// iterate through the array of objects and send each the print function to
-	// be appended to the table
 	for (let i = 0; i < workouts.length; i++) {
 		let thRows = document.createElement('th');
 		thRows.textContent = printToScreen(workouts[i]);
@@ -254,7 +256,11 @@ function singleWorkoutDetails(workout) {
 	updateButton.setAttribute('type', 'button');
 	updateButton.setAttribute('id', 'updateButton');
 	updateButton.setAttribute('value', 'update');
-	updateButton.setAttribute('onclick', 'update('+workout.id+')');
+
+	updateButton.addEventListener('click', function(e) {
+		divSingleWorkout.textContent='';
+		updateWorkoutById(workout);
+	});
 	ul.appendChild(updateButton);
 	
 	//creation of the delete button
@@ -262,9 +268,10 @@ function singleWorkoutDetails(workout) {
 	deleteButton.setAttribute('type', 'button');
 	deleteButton.setAttribute('id', 'deleteButton');
 	deleteButton.setAttribute('value', 'delete');
+
 	deleteButton.addEventListener('click', function(e) {
 		deleteWorkoutById(workout.id);
-		divSingleWorkout.textContent = '';
+		divSingleWorkout.textContent='';
 	});
 	ul.appendChild(deleteButton);
 }
