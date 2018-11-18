@@ -1,7 +1,7 @@
 window.addEventListener('load', function(e) {
 	console.log('document loaded');
 	getDataForTable();
-	newWorkout(); 
+	newWorkout();
 });
 
 function newWorkout() {
@@ -44,10 +44,10 @@ function deleteWorkoutById(workoutId) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 204) {
-				let divSingleWorkout = document.getElementById('divSingleWorkout');
+				let divSingleWorkout = document
+						.getElementById('divSingleWorkout');
 				getDataForTable();
-			}
-			else {
+			} else {
 				console.log('denied');
 			}
 		}
@@ -82,8 +82,7 @@ function getWorkoutById(workoutId) {
 				let workout = JSON.parse(response);
 				singleWorkoutDetails(workout);
 				console.log(workout);
-			}
-			else {
+			} else {
 				console.log('denied');
 			}
 		}
@@ -101,8 +100,7 @@ function updateWorkout(managedWorkoutId) {
 				let response = xhr.responseText;
 				let updatedWorkout = JSON.parse(response);
 				console.log(updatedWorkout);
-			}
-			else {
+			} else {
 				console.log('denied');
 			}
 		}
@@ -110,54 +108,55 @@ function updateWorkout(managedWorkoutId) {
 	xhr.send();
 }
 
-
 function updateWorkoutById(managedWorkout) {
-	let br = document.createElement('br');
-	let divSingleWorkoutUpdate = document.getElementById('divSingleWorkout');
-	let updateForm = document.createElement('form');
-	divSingleWorkoutUpdate.appendChild(updateForm);
-	
-	let h3 = document.createElement('h3');
-	h3.textContent = 'Edit a workout';
-	updateForm.appendChild(h3);
-	
-	let typeTextField = document.createElement('input');
-	typeTextField.setAttribute('type', 'text');
-	managedWorkout.type = typeTextField.setAttribute('value', 'type');
-	updateForm.appendChild(typeTextField);
-	
-	let durationTextField = document.createElement('input');
-	durationTextField.setAttribute('type', 'number');
-	durationTextField.setAttribute('placeholder', 'duration');
-	updateForm.appendChild(durationTextField);
-	
-	let exerciseTextField = document.createElement('input');
-	exerciseTextField.setAttribute('type', 'text');
-	exerciseTextField.setAttribute('value', 'exercise');
-	updateForm.appendChild(exerciseTextField);
-
-	let caloriesBurnedTextField = document.createElement('input');
-	caloriesBurnedTextField.setAttribute('type', 'number');
-	caloriesBurnedTextField.setAttribute('placeholder', 'calories burned');
-	updateForm.appendChild(caloriesBurnedTextField);
-	
-	let updateSubmitButton = document.createElement('input');
-	updateSubmitButton.setAttribute('type', 'button');
-	updateSubmitButton.setAttribute('value', 'submit');
-	updateForm.appendChild(updateSubmitButton);
-	
+	// let br = document.createElement('br');
+	// let divSingleWorkoutUpdate = document.getElementById('divSingleWorkout');
+	// let updateForm = document.createElement('form');
+	// updateForm.setAttribute('id', 'updateForm');
+	// divSingleWorkoutUpdate.appendChild(updateForm);
+	//	
+	// let h3 = document.createElement('h3');
+	// h3.textContent = 'Edit a workout';
+	// updateForm.appendChild(h3);
+	//	
+	// let typeTextField = document.createElement('input');
+	// typeTextField.setAttribute('type', 'text');
+	// typeTextField.setAttribute('value', '');
+	// updateForm.appendChild(typeTextField);
+	//	
+	// let durationTextField = document.createElement('input');
+	// durationTextField.setAttribute('type', 'number');
+	// durationTextField.setAttribute('placeholder', 'duration');
+	// durationTextField.setAttribute('value', '');
+	// updateForm.appendChild(durationTextField);
+	//	
+	// let exerciseTextField = document.createElement('input');
+	// exerciseTextField.setAttribute('type', 'text');
+	// exerciseTextField.setAttribute('value', '');
+	// updateForm.appendChild(exerciseTextField);
+	//
+	// let caloriesBurnedTextField = document.createElement('input');
+	// caloriesBurnedTextField.setAttribute('type', 'number');
+	// caloriesBurnedTextField.setAttribute('value', '');
+	// updateForm.appendChild(caloriesBurnedTextField);
+	//	
+	// let updateSubmitButton = document.createElement('input');
+	// updateSubmitButton.setAttribute('type', 'button');
+	// updateSubmitButton.setAttribute('value', 'submit');
+	// updateForm.appendChild(updateSubmitButton);
+	//	
 	updateSubmitButton.addEventListener('click', function(e) {
-				event.preventDefault();
-				let form = event.target.parentElement;
-				let managedWorkout = {
-					type : form.type.value,
-					duration : form.duration.value,
-					exercise : form.exercise.value,
-					caloriesBurned : form.caloriesBurned.value
-				};
-				console.log(managedWorkout.id);
-				updateWorkout(managedWorkout.id);
-});
+		e.preventDefault();
+		var form = document.getElementById('updateForm');
+		let managedWorkout = {
+			type : form.type.value,
+			duration : form.duration.value,
+			exercise : form.exercise.value,
+			caloriesBurned : form.caloriesBurned.value
+		};
+		console.log(managedWorkout);
+		updateWorkout(managedWorkout.id);
+	});
 }
 
 function tableOfData(workouts) {
@@ -250,20 +249,68 @@ function singleWorkoutDetails(workout) {
 	let liCaloriesBurned = document.createElement('li');
 	liCaloriesBurned.textContent = workout.caloriesBurned;
 	ul.appendChild(liCaloriesBurned);
-	
-	//creation of the udpdate button
+
+	// creation of the udpdate button
 	let updateButton = document.createElement('input');
 	updateButton.setAttribute('type', 'button');
 	updateButton.setAttribute('id', 'updateButton');
 	updateButton.setAttribute('value', 'update');
+	ul.appendChild(updateButton);
 
 	updateButton.addEventListener('click', function(e) {
-		divSingleWorkout.textContent='';
-		updateWorkoutById(workout);
+		let divSingleWorkoutUpdate = document
+				.getElementById('divSingleWorkout');
+		let updateForm = document.createElement('form');
+		updateForm.setAttribute('id', 'updateForm');
+		divSingleWorkoutUpdate.appendChild(updateForm);
+
+		let h3 = document.createElement('h3');
+		h3.textContent = 'EDIT';
+		updateForm.appendChild(h3);
+
+		let typeTextField = document.createElement('input');
+		typeTextField.setAttribute('type', 'text');
+		typeTextField.setAttribute('placeholder', 'type');
+		typeTextField.setAttribute('value', '');
+		updateForm.appendChild(typeTextField);
+
+		let durationTextField = document.createElement('input');
+		durationTextField.setAttribute('type', 'number');
+		durationTextField.setAttribute('placeholder', 'duration');
+		durationTextField.setAttribute('value', '');
+		updateForm.appendChild(durationTextField);
+
+		let exerciseTextField = document.createElement('input');
+		exerciseTextField.setAttribute('type', 'text');
+		exerciseTextField.setAttribute('placeholder', 'exercise');
+		exerciseTextField.setAttribute('value', '');
+		updateForm.appendChild(exerciseTextField);
+
+		let caloriesBurnedTextField = document.createElement('input');
+		caloriesBurnedTextField.setAttribute('type', 'number');
+		caloriesBurnedTextField.setAttribute('placeholder', 'calories burned');
+		caloriesBurnedTextField.setAttribute('value', '');
+		updateForm.appendChild(caloriesBurnedTextField);
+
+		let updateSubmitButton = document.createElement('input');
+		updateSubmitButton.setAttribute('type', 'button');
+		updateSubmitButton.setAttribute('value', 'submit');
+		updateForm.appendChild(updateSubmitButton);
+
+		updateSubmitButton.addEventListener('click', function(e) {
+			e.preventDefault();
+			var form = document.getElementById('updateForm');
+			let managedWorkout = {
+				type : form.type.value,
+				duration : form.duration.value,
+				exercise : form.exercise.value,
+				caloriesBurned : form.caloriesBurned.value
+			};
+			updateWorkout(managedWorkout.id);
+		});
 	});
-	ul.appendChild(updateButton);
-	
-	//creation of the delete button
+
+	// creation of the delete button
 	let deleteButton = document.createElement('input');
 	deleteButton.setAttribute('type', 'button');
 	deleteButton.setAttribute('id', 'deleteButton');
@@ -271,7 +318,7 @@ function singleWorkoutDetails(workout) {
 
 	deleteButton.addEventListener('click', function(e) {
 		deleteWorkoutById(workout.id);
-		divSingleWorkout.textContent='';
+		divSingleWorkout.textContent = '';
 	});
 	ul.appendChild(deleteButton);
 }
