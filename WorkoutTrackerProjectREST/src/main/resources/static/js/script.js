@@ -90,9 +90,9 @@ function getWorkoutById(workoutId) {
 	xhr.send();
 }
 
-function updateWorkout(managedWorkoutId) {
+function updateWorkout(managedWorkout) {
 	let xhr = new XMLHttpRequest();
-	xhr.open('PUT', 'api/workouts/' + managedWorkoutId);
+	xhr.open('PUT', 'api/workouts/' + managedWorkout.id);
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 202) {
@@ -262,6 +262,7 @@ function singleWorkoutDetails(workout) {
 				.getElementById('divSingleWorkout');
 		let updateForm = document.createElement('form');
 		updateForm.setAttribute('id', 'updateForm');
+		updateForm.setAttribute('name', 'updateForm');
 		divSingleWorkoutUpdate.appendChild(updateForm);
 
 		let h3 = document.createElement('h3');
@@ -270,24 +271,28 @@ function singleWorkoutDetails(workout) {
 
 		let typeTextField = document.createElement('input');
 		typeTextField.setAttribute('type', 'text');
+		typeTextField.setAttribute('name', 'type');
 		typeTextField.setAttribute('placeholder', 'type');
 		typeTextField.setAttribute('value', '');
 		updateForm.appendChild(typeTextField);
 
 		let durationTextField = document.createElement('input');
 		durationTextField.setAttribute('type', 'number');
+		durationTextField.setAttribute('name', 'duration');
 		durationTextField.setAttribute('placeholder', 'duration');
 		durationTextField.setAttribute('value', '');
 		updateForm.appendChild(durationTextField);
 
 		let exerciseTextField = document.createElement('input');
 		exerciseTextField.setAttribute('type', 'text');
+		exerciseTextField.setAttribute('name', 'exercise');
 		exerciseTextField.setAttribute('placeholder', 'exercise');
 		exerciseTextField.setAttribute('value', '');
 		updateForm.appendChild(exerciseTextField);
 
 		let caloriesBurnedTextField = document.createElement('input');
 		caloriesBurnedTextField.setAttribute('type', 'number');
+		caloriesBurnedTextField.setAttribute('name', 'caloriesBurned');
 		caloriesBurnedTextField.setAttribute('placeholder', 'calories burned');
 		caloriesBurnedTextField.setAttribute('value', '');
 		updateForm.appendChild(caloriesBurnedTextField);
@@ -306,7 +311,9 @@ function singleWorkoutDetails(workout) {
 				exercise : form.exercise.value,
 				caloriesBurned : form.caloriesBurned.value
 			};
-			updateWorkout(managedWorkout.id);
+			managedWorkout.Id = workout.id;
+			console.log(managedWorkout.Id);
+			updateWorkout(managedWorkout);
 		});
 	});
 
