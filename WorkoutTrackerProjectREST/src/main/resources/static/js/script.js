@@ -91,21 +91,28 @@ function getWorkoutById(workoutId) {
 }
 
 function updateWorkout(managedWorkout) {
+	let updateForm = document.getElementById('updateForm');
 	let xhr = new XMLHttpRequest();
-	xhr.open('PUT', 'api/workouts/' + managedWorkout.id);
+	xhr.open('PUT', 'api/workouts/' + managedWorkout.Id);
+	xhr.setRequestHeader('Content-type', 'application/json');
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
+			console.log('xhr.status');
+			console.log(xhr.status);
 			if (xhr.status === 202) {
 				console.log('success');
 				let response = xhr.responseText;
 				let updatedWorkout = JSON.parse(response);
-				console.log(updatedWorkout);
+				updateForm = '';
+				getDataForTable();
+				
 			} else {
 				console.log('denied');
 			}
 		}
 	};
-	xhr.send();
+	let workoutJson = JSON.stringify(managedWorkout);
+	xhr.send(workoutJson);
 }
 
 function updateWorkoutById(managedWorkout) {
@@ -312,7 +319,8 @@ function singleWorkoutDetails(workout) {
 				caloriesBurned : form.caloriesBurned.value
 			};
 			managedWorkout.Id = workout.id;
-			console.log(managedWorkout.Id);
+			divSingleWorkout="";
+			divSingleWorkoutUpdate="";
 			updateWorkout(managedWorkout);
 		});
 	});
